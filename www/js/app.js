@@ -25,16 +25,6 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
         $scope.medias = result.data;
     });
 
-    $scope.cards = [];
-
-    // $scope.addCard = function(i) {
-    //     var newCard = $scope.medias[Math.floor(Math.random() * $scope.medias.length)];
-    //     newCard.id = Math.random();
-    //     $scope.cards.push(angular.extend({}, newCard));
-    // }
-    //
-    // for(var i = 0; i < 3; i++) $scope.addCard();
-
     $scope.cardSwipedLeft = function(index) {
         console.log('Left swipe');
     };

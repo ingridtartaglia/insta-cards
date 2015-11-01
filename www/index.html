@@ -16,8 +16,8 @@
 <body ng-controller="lawCardsCtrl">
 
     <ion-pane>
-        <ion-header-bar class="bar-stable">
-            <h1 class="title">Law Cards</h1>
+        <ion-header-bar class="bar-positive">
+            <h1 class="title">Insta Cards</h1>
         </ion-header-bar>
         <ion-content>
 
@@ -25,7 +25,11 @@
             <td-card id="td-card" ng-repeat="media in medias" on-destroy="cardDestroyed($index)"
                 on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)"
                 on-partial-swipe="cardPartialSwipe(amt)">
-                <img ng-src="{{media.images.standard_resolution.url}}"
+                <img ng-src="{{media.images.standard_resolution.url}}">
+                <div class="text-center">
+                    <span class="insta-name padding"><span class="balanced h4">@</span> {{media.user.username}}</span>
+                    <span class="insta-likes padding"><i class="icon ion-ios-heart h4 assertive"></i> {{media.likes.count}}</span>
+                </div>
             </td-card>
         </td-cards>
 
