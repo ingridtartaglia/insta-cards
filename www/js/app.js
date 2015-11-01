@@ -11,35 +11,29 @@ angular.module('starter', ['ionic', 'ionic.contrib.ui.tinderCards'])
     }
 })
 
-.factory('lawService', ['$http', function($http){
-    return {
-        search: function(){
-            var url = "http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=PL&numero=&ano=2015&datApresentacaoIni=01/10/2015&datApresentacaoFim=" +
-            "&parteNomeAutor=&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=";
-            return $http.get(url);
-        }
-    }
+
+.factory('instagram', ['$http', function($http){
+    return $http.jsonp('https://api.instagram.com/v1/media/popular?client_id=fa127354e66d4c8da164d92edd18ca66&callback=JSON_CALLBACK')
+    .success(function(result) {
+        return result;
+    });
 }])
 
+.controller('lawCardsCtrl', ['$scope', 'instagram', function($scope, instagram){
 
-.controller('lawCardsCtrl', ['$scope', 'lawService', function($scope, lawService){
-
-    $scope.getLaws = function(){
-        lawService.search()
-        .then(function(proposicoes){
-            $scope.proposicoes = proposicoes;
-        });
-    };
+    instagram.success(function(result) {
+        $scope.medias = result.data;
+    });
 
     $scope.cards = [];
 
-    $scope.addCard = function(i) {
-        var newCard = $scope.proposicoes[Math.floor(Math.random() * $scope.proposicoes.length)];
-        newCard.id = Math.random();
-        $scope.cards.push(angular.extend({}, newCard));
-    }
-
-    for(var i = 0; i < 3; i++) $scope.addCard();
+    // $scope.addCard = function(i) {
+    //     var newCard = $scope.medias[Math.floor(Math.random() * $scope.medias.length)];
+    //     newCard.id = Math.random();
+    //     $scope.cards.push(angular.extend({}, newCard));
+    // }
+    //
+    // for(var i = 0; i < 3; i++) $scope.addCard();
 
     $scope.cardSwipedLeft = function(index) {
         console.log('Left swipe');
